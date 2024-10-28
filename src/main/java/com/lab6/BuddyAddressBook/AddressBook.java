@@ -1,96 +1,77 @@
 package com.lab6.BuddyAddressBook;
 
+import com.lab6.BuddyAddressBook.BuddyInfo;
 import jakarta.persistence.*;
-import lombok.Getter;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class maintains the collection of the BuddyInfo object.
- * @author trong0dn
+ * This class represents an AddressBook which stores a list of BuddyInfo objects.
+ *
+ * @author Daniel Godfrey 101156147
  */
-@Getter
 @Entity
 public class AddressBook {
-
-    /**
-     * -- GETTER --
-     *  Gets the id of this AddressBook. The persistence provider should
-     *  autogenerate a unique id for new AddressBook objects.
-     *
-     */
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id = null;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    private List<BuddyInfo> buddies;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<BuddyInfo> myBuddies;
 
-    /**
-     * Creates a new instance of AddressBook.
-     */
-    public AddressBook() {
-        this.buddies = new ArrayList<>();
+    public AddressBook(){
+        myBuddies = new ArrayList<>();
     }
-
-    /**
-     * Set BuddyInfo object.
-     * @param buddies   List<BuddyInfo> object
-     */
-    public void setBuddies(List<BuddyInfo> buddies) {
-        this.buddies = buddies;
-    }
-
-    /**
-     * Add BuddyInfo object to AddressBook.
-     * @param aBuddy     BuddyInfo object
-     */
     public void addBuddy(BuddyInfo aBuddy) {
-        if (aBuddy == null || buddies.contains(aBuddy))
-            return;
-        this.buddies.add(aBuddy);
+        if(aBuddy != null){
+            myBuddies.add(aBuddy);
+        }
     }
 
-    /**
-     * Remove BuddyInfo object from AddressBook.
-     * @ @param aBuddy     BuddyInfo object
-     */
-    public void removeBuddy(BuddyInfo aBuddy) {
-        if (aBuddy == null || !buddies.contains(aBuddy))
-            return;
-        this.buddies.remove(aBuddy);
+    public BuddyInfo getBuddy(int id){
+        return this.myBuddies.get(id);
     }
 
-    /**
-     * Get the size of the AddressBook.
-     * @return  int
-     */
-    public int size() {
-        return buddies.size();
+    public BuddyInfo removeBuddy(int index) {
+
+        if(index >= 0 && index < myBuddies.size()){
+            return myBuddies.remove(index);
+        }
+        return null;
     }
 
-    /**
-     * Check for AddressBook object equality.
-     * @param obj   Objects
-     * @return      boolean
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this)
-            return true;
-        if (!(obj instanceof AddressBook addressBook))
-            return false;
-        return this.size() == addressBook.size();
+    public void printBuddies() {
+        for (BuddyInfo buddy : myBuddies) {
+            System.out.println(buddy.getBuddyInfo());
+        }
     }
 
-    /**
-     * Return the toString method of AddressBook.
-     * @return  String
-     */
-    @Override
-    public String toString() {
-        return super.toString();
+    public List<BuddyInfo> getBuddies() {
+        return myBuddies;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public static void main(String[] args) {
+        /*
+        BuddyInfo buddy1 = new BuddyInfo("Tom", "123 Navan", "613-555-5555");
+        BuddyInfo buddy2 = new BuddyInfo("Cristy", "321 Bronson", "416-555-5555");
+
+        AddressBook addressBook = new AddressBook();
+        addressBook.addBuddy(buddy1);
+        addressBook.addBuddy(buddy2);
+
+        addressBook.printBuddies();
+
+         */
+    }
 }

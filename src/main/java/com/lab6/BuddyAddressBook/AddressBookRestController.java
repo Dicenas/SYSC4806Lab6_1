@@ -19,13 +19,13 @@ public class AddressBookRestController {
     }
 
     @GetMapping(value="/{id}")
-    public ResponseEntity<AddressBook> getAddressBook(@PathVariable Long id) {
+    public ResponseEntity<AddressBook> getAddressBook(@PathVariable Integer id) {
         Optional<AddressBook> addressBook = addressBookRepository.findById(id);
         return addressBook.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping(value="/{id}")
-    public ResponseEntity<Void> deleteAddressBook(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAddressBook(@PathVariable Integer id) {
         addressBookRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }

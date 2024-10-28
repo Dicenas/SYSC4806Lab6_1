@@ -19,7 +19,7 @@ public class BuddyInfoRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<BuddyInfo> getBuddyInfo(@PathVariable Long id) {
-        Optional<BuddyInfo> buddyInfo = buddyInfoRepository.findById(id);
+        Optional<BuddyInfo> buddyInfo = Optional.ofNullable(buddyInfoRepository.findById(id));
         return buddyInfo.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
     @DeleteMapping(value="/{id}")

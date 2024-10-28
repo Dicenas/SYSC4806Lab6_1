@@ -1,20 +1,14 @@
 package com.lab6.BuddyAddressBook;
 
+import com.lab6.BuddyAddressBook.BuddyInfo;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
-/**
- * Crud repository for BuddyInfo.
- * @author trong0dn
- */
-public interface BuddyInfoRepository extends CrudRepository<BuddyInfo, Long> {
+@Repository
+public interface BuddyInfoRepository extends CrudRepository<BuddyInfo, Integer> {
+    List<BuddyInfo> findByName(String name);
 
-    @NonNull
-    List<BuddyInfo> findAll();
-
-    Optional<BuddyInfo> findByName(String name);
-
+    BuddyInfo findById(long id);
 }

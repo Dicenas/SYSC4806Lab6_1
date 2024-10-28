@@ -1,17 +1,9 @@
 package com.lab6.BuddyAddressBook;
 
+import com.lab6.BuddyAddressBook.AddressBook;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-/**
- * Crud repository for AddressBook.
- * @author trong0dn
- */
-public interface AddressBookRepository extends CrudRepository<AddressBook, Long> {
-
-    @NonNull
-    List<AddressBook> findAll();
-
+@Repository
+public interface AddressBookRepository extends CrudRepository<AddressBook, Integer> {
 }

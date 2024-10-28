@@ -1,116 +1,50 @@
 package com.lab6.BuddyAddressBook;
 
-import jakarta.persistence.*;
-import lombok.Getter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 /**
- * This class contains information about a buddy.
- * @author trong0dn
+ * This class represents a BuddyInfo object that stores a buddy's name, address, and phone number.
+ *
+ * @author Daniel Godfrey 101156147
  */
-@Getter
 @Entity
 public class BuddyInfo {
-
-    /**
-     * -- GETTER --
-     *  Gets the id of this BuddyInfo. The persistence provider should
-     *  autogenerate a unique id for new BuddyInfo objects.
-     *
-     */
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
-
-    /**
-     * -- GETTER --
-     *  Get the buddy's name.
-     *
-     */
     private String name;
-
-    /**
-     * -- GETTER --
-     *  Get the buddy's address.
-     *
-     */
     private String address;
-
-    /**
-     * -- GETTER --
-     *  Get the buddy's phone number.
-     *
-     */
     private String phoneNumber;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id;
 
-    /**
-     * Creates a new instance of BuddyInfo.
-     */
-    public BuddyInfo() { }
-
-    /**
-     * Constructor for BuddyInfo.
-     * @param name          String, name of Buddy
-     * @param address       String, address of Buddy
-     * @param phoneNumber   String, phone number of Buddy
-     */
+    public BuddyInfo() {
+        this("Henry", "123 Sesame Street", "248-434-5508");
+    }
     public BuddyInfo(String name, String address, String phoneNumber) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
-
-    /**
-     * Set the buddy's name.
-     * @param name  String
-     */
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
-    /**
-     * Set the buddy's address.
-     * @param address   String
-     */
-    public void setAddress(String address) {
-        this.address = address;
+    public String getBuddyInfo() {
+        return "Name: " + name + ", Address: " + address + ", Phone: " + phoneNumber;
     }
 
-    /**
-     * Set the buddy's phone number.
-     * @param phoneNumber   String
-     */
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public static void main(String[] args) {
+        BuddyInfo buddy = new BuddyInfo();
+        System.out.println("Hello " + buddy.getName());
     }
 
-    /**
-     * Return the toString method of BuddyInfo.
-     * BuddyInfo is displayed on a single line, with each attribute of the BuddyInfo separated from one another using
-     * a special character.
-     * @return      String
-     */
-    @Override
-    public String toString() {
-        return String.format(
-                "BuddyInfo[name='%s', address='%s', phoneNumber='%s']",
-                name, address, phoneNumber);
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    /**
-     * Check for BuddyInfo object equality.
-     * @param obj   BuddyInfo object
-     * @return      boolean
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj.getClass() != this.getClass()) {
-            return false;
-        }
-        BuddyInfo otherBuddy = (BuddyInfo) obj;
-        return this.name.equals(otherBuddy.name) && this.address.equals(otherBuddy.address) && this.phoneNumber.equals(otherBuddy.phoneNumber);
+    public Integer getId() {
+        return id;
     }
-
 }
